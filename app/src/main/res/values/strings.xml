@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">PatasKt</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_code">Code</string>
+    <string name="info_code_label">Contact your doctor for your code.\n If you already have a code, enter it in the space shown. You can also skip this process and enter it later.</string>
+    <string name="info_code_no_skip_label">Contact your doctor for your code.\n If you already have a code, enter it in the space shown.</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_skip_sign_in">Skip Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_code">Not a valid code</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="title_scanner">Scanner</string>
+    <string name="title_account">Account</string>
+    <string name="label_instructions">Start scanning and view the results here</string>
+</resources>

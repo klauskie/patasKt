@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_scanner"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_radio_button_checked_black_24dp"
         android:title="@string/title_scanner" />
 
     <item

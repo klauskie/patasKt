@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.*
+import android.util.Base64
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.klaus.pataskt.ui.scanner.CameraFragment
 import com.klaus.pataskt.ui.scanner.ResultFragment
+import java.io.ByteArrayOutputStream
 
 class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
 
@@ -44,9 +47,9 @@ class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
     }
 
     override fun onPhotoTaken(image: Bitmap) {
-        // TODO: Send to API
-        // Load next fragment
-        loadFragment(ResultFragment.newInstance(image))
+        val encodedImage = encodeImage(image)
+        Log.d(TAG, "Encoded image: $encodedImage")
+        loadFragment(ResultFragment.newInstance(encodedImage?: ""))
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -55,6 +58,13 @@ class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun encodeImage(bm: Bitmap): String? {
+        val baos = ByteArrayOutputStream()
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val b = baos.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
     companion object {

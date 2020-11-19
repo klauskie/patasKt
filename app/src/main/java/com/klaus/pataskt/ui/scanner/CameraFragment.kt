@@ -26,6 +26,7 @@ class CameraFragment : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var cameraProvider: ProcessCameraProvider
     private lateinit var cameraListener: ICameraFragment
+    private lateinit var _imageBitMap: Bitmap
 
     interface ICameraFragment {
         fun onPhotoTaken(image: Bitmap)
@@ -39,6 +40,11 @@ class CameraFragment : Fragment() {
         // Set up the listener for take photo button
         val cameraBtn = view.findViewById<Button>(R.id.camera_capture_button)
         cameraBtn.setOnClickListener { takePhoto() }
+
+        val nextBtn = view.findViewById<Button>(R.id.next_btn)
+        nextBtn.setOnClickListener {
+            cameraListener.onPhotoTaken(_imageBitMap)
+        }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
 
@@ -78,14 +84,30 @@ class CameraFragment : Fragment() {
 
                 override fun onCaptureSuccess(image: ImageProxy) {
                     Log.d(TAG, "takePhoto(); Photo capture succeeded")
-
+                    // store image bitmap in memory
+                    _imageBitMap = image.ToBitmap()
                     // display image
-                    val imageBitMap = image.ToBitmap()
-                    cameraListener.onPhotoTaken(imageBitMap)
-                    image.close()
+                    showPhoto(image)
                 }
 
             })
+    }
+
+    private fun showPhoto(img: ImageProxy) {
+        imageViewResult.visibility = View.VISIBLE
+        imageViewResult.setImageBitmap(_imageBitMap)
+        camera_capture_button.visibility = View.INVISIBLE
+        cameraProvider.unbindAll()
+
+        close_btn.visibility = View.VISIBLE
+        close_btn.setOnClickListener {
+            imageViewResult.visibility = View.INVISIBLE
+            close_btn.visibility = View.INVISIBLE
+            camera_capture_button.visibility = View.VISIBLE
+            img.close()
+            startCamera()
+        }
+        next_btn.visibility = View.VISIBLE
     }
 
     private fun startCamera() {

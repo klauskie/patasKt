@@ -10,11 +10,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.klaus.pataskt.ui.scanner.CameraFragment
-import com.klaus.pataskt.ui.scanner.PhotoResultFragment
+import com.klaus.pataskt.ui.scanner.ResultFragment
 
-class ScannerActivity : AppCompatActivity(),
-    CameraFragment.ICameraFragment,
-    PhotoResultFragment.IPhotoResultFragment {
+class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +44,9 @@ class ScannerActivity : AppCompatActivity(),
     }
 
     override fun onPhotoTaken(image: Bitmap) {
-        loadFragment(PhotoResultFragment.newInstance(image))
-    }
-
-    override fun onPhotoClosed() {
-        // TODO: go to CameraFragment
+        // TODO: Send to API
+        // Load next fragment
+        loadFragment(ResultFragment.newInstance(image))
     }
 
     private fun loadFragment(fragment: Fragment) {

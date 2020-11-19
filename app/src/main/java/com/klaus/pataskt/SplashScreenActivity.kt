@@ -30,7 +30,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
             Log.d("SplashScreenActivity", "Show login screen: ".plus(showLogin.toString()))
 
-            startActivity(Intent(intent))
+            startActivity(intent)
             finish()
         }, SPLASH_TIME_OUT)
     }

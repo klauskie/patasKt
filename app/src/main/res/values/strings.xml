@@ -16,8 +16,14 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="btn_OK_label">OK</string>
+    <string name="btn_skip_label">Skip</string>
 
     <string name="title_scanner">Scanner</string>
     <string name="title_account">Account</string>
     <string name="label_instructions">Start scanning and view the results here</string>
+
+    <string name="label_instruction_title">Instrucciones</string>
+    <string name="text_instruction_step_1">Coloca tu pie sobre una superficie plana y con un fondo claro.</string>
+    <string name="text_instruction_step_2">Asegurate de que el pie se encuentre dentro del recuadro blanco.</string>
 </resources>

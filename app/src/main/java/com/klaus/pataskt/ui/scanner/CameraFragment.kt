@@ -31,6 +31,7 @@ class CameraFragment : Fragment() {
 
     interface ICameraFragment {
         fun onPhotoTaken(image: Bitmap)
+        fun showInfo()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,6 +46,11 @@ class CameraFragment : Fragment() {
         val nextBtn = view.findViewById<Button>(R.id.next_btn)
         nextBtn.setOnClickListener {
             cameraListener.onPhotoTaken(_imageBitMap)
+        }
+
+        val infoBtn = view.findViewById<Button>(R.id.info_btn)
+        infoBtn.setOnClickListener {
+            cameraListener.showInfo()
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
@@ -100,6 +106,7 @@ class CameraFragment : Fragment() {
         imageViewResult.setImageBitmap(_imageBitMap)
         camera_capture_button.visibility = View.INVISIBLE
         guideline.visibility = View.INVISIBLE
+        info_btn.visibility = View.INVISIBLE
         cameraProvider.unbindAll()
 
         close_btn.visibility = View.VISIBLE
@@ -109,6 +116,7 @@ class CameraFragment : Fragment() {
             next_btn.visibility = View.INVISIBLE
             camera_capture_button.visibility = View.VISIBLE
             guideline.visibility = View.VISIBLE
+            info_btn.visibility = View.INVISIBLE
             img.close()
             startCamera()
         }

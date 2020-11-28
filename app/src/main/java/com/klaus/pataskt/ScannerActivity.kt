@@ -3,6 +3,7 @@ package com.klaus.pataskt
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.util.Base64
@@ -12,10 +13,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.klaus.pataskt.ui.scanner.CameraFragment
+import com.klaus.pataskt.ui.scanner.InstructionsFragment
 import com.klaus.pataskt.ui.scanner.ResultFragment
+import com.klaus.pataskt.util.Constant
 import java.io.ByteArrayOutputStream
 
-class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
+class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment, InstructionsFragment.InstructionsListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +27,7 @@ class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
 
         // Request camera permissions
         if (allPermissionsGranted()) {
-            loadFragment(CameraFragment())
+            showFirstFragment()
         } else {
             ActivityCompat.requestPermissions(
                 this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
@@ -36,7 +39,7 @@ class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
         IntArray) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (allPermissionsGranted()) {
-                loadFragment(CameraFragment())
+                showFirstFragment()
             } else {
                 Toast.makeText(this,
                     "Permissions not granted by the user.",
@@ -56,6 +59,25 @@ class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
         supportFragmentManager.beginTransaction().replace(R.id.host_fragment, fragment).commit()
     }
 
+    private fun showFirstFragment() {
+        val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        val hasSeenInstructions = sharedPref.getBoolean(Constant.KEY_HAS_SEEN_CAMERA_INSTRUCTIONS, false)
+        if (hasSeenInstructions) {
+            loadFragment(CameraFragment())
+        } else {
+            sharedPref.edit().putBoolean(Constant.KEY_HAS_SEEN_CAMERA_INSTRUCTIONS, true).apply()
+            loadFragment(InstructionsFragment())
+        }
+    }
+
+    override fun showInfo() {
+        loadFragment(InstructionsFragment())
+    }
+
+    override fun dismissInstructions() {
+        loadFragment(CameraFragment())
+    }
+
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
@@ -68,7 +90,7 @@ class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment {
     }
 
     companion object {
-        private const val TAG = "CameraXBasic"
+        private const val TAG = "ScannerActivity"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)

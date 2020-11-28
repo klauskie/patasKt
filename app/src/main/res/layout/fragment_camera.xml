@@ -56,5 +56,15 @@
         android:background="@color/colorBlack"
         android:visibility="invisible"/>
 
+    <View
+        android:id="@+id/guideline"
+        android:layout_width="250dp"
+        android:layout_height="500dp"
+        android:background="@drawable/camera_guide"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_capture_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,5 +5,13 @@
             <solid android:color = "#32CD32"/>
         </shape>
     </item>
-    <item android:drawable="@drawable/ic_check_white_24dp"/>
+    <item>
+        <inset
+            android:drawable="@drawable/ic_check_white_24dp"
+            android:insetTop="4dp"
+            android:insetLeft="4dp"
+            android:insetRight="4dp"
+            android:insetBottom="4dp">
+        </inset>
+    </item>
 </layer-list>

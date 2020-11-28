@@ -3,6 +3,7 @@ package com.klaus.pataskt.ui.scanner
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -85,7 +86,7 @@ class CameraFragment : Fragment() {
                 override fun onCaptureSuccess(image: ImageProxy) {
                     Log.d(TAG, "takePhoto(); Photo capture succeeded")
                     // store image bitmap in memory
-                    _imageBitMap = image.ToBitmap()
+                    _imageBitMap = image.toBitmap()
                     // display image
                     showPhoto(image)
                 }
@@ -95,19 +96,22 @@ class CameraFragment : Fragment() {
 
     private fun showPhoto(img: ImageProxy) {
         imageViewResult.visibility = View.VISIBLE
+        next_btn.visibility = View.VISIBLE
         imageViewResult.setImageBitmap(_imageBitMap)
         camera_capture_button.visibility = View.INVISIBLE
+        guideline.visibility = View.INVISIBLE
         cameraProvider.unbindAll()
 
         close_btn.visibility = View.VISIBLE
         close_btn.setOnClickListener {
             imageViewResult.visibility = View.INVISIBLE
             close_btn.visibility = View.INVISIBLE
+            next_btn.visibility = View.INVISIBLE
             camera_capture_button.visibility = View.VISIBLE
+            guideline.visibility = View.VISIBLE
             img.close()
             startCamera()
         }
-        next_btn.visibility = View.VISIBLE
     }
 
     private fun startCamera() {
@@ -146,12 +150,15 @@ class CameraFragment : Fragment() {
         }, ContextCompat.getMainExecutor(context))
     }
 
-    fun ImageProxy.ToBitmap(): Bitmap {
+    fun ImageProxy.toBitmap(): Bitmap {
         val buffer = planes[0].buffer
         buffer.rewind()
         val bytes = ByteArray(buffer.capacity())
         buffer.get(bytes)
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        val fullBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        val dimension = 1000
+        val btm = ThumbnailUtils.extractThumbnail(fullBitmap, dimension, dimension)
+        return Bitmap.createBitmap(btm,dimension/4,  0, dimension/2, dimension)
     }
 
     override fun onDestroy() {

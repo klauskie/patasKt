@@ -164,7 +164,7 @@ class CameraFragment : Fragment() {
         val bytes = ByteArray(buffer.capacity())
         buffer.get(bytes)
         val fullBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        val dimension = 1000
+        val dimension = 500
         val btm = ThumbnailUtils.extractThumbnail(fullBitmap, dimension, dimension)
         return Bitmap.createBitmap(btm,dimension/4,  0, dimension/2, dimension)
     }

@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.Response
@@ -21,6 +24,9 @@ import org.json.JSONObject
 class ResultFragment : Fragment() {
 
     private val TAG = ResultFragment::class.java.simpleName
+    lateinit var resultContainer: LinearLayout
+    lateinit var loaderContainer: RelativeLayout
+    lateinit var doneButton: Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_photo_result, container, false)
@@ -28,6 +34,16 @@ class ResultFragment : Fragment() {
         arguments?.getParcelable<Bitmap>(ARG_IMAGE_BITMAP_BASE64)?.let {
             Log.d(TAG, it.toString())
         }
+
+        resultContainer = view.findViewById(R.id.result_container)
+        loaderContainer = view.findViewById(R.id.loading_container)
+        doneButton = view.findViewById(R.id.done_btn)
+
+        doneButton.setOnClickListener {
+            activity?.finish()
+        }
+
+        resultContainer.visibility = View.INVISIBLE
 
         val encodedImage = arguments?.getString(ARG_IMAGE_BITMAP_BASE64) ?: ""
         //postPhoto(encodedImage)
@@ -59,9 +75,13 @@ class ResultFragment : Fragment() {
 
         val stringRequest = StringRequest(Request.Method.GET, url,
             Response.Listener<String> { response ->
+                results_label.visibility = View.VISIBLE
+                loaderContainer.visibility = View.INVISIBLE
+                resultContainer.visibility = View.VISIBLE
+                doneButton.visibility = View.VISIBLE
                 // Display the first 500 characters of the response string.
-                test_text.text = "Response is: ${response.substring(0, 500)}"
-                test_text_2.text = "Encoded image is: ${encodedImage.substring(0, 50)}"
+                //test_text.text = "Response is: ${response.substring(0, 500)}"
+                //test_text_2.text = "Encoded image is: ${encodedImage.substring(0, 50)}"
             },
             Response.ErrorListener { error -> error.printStackTrace() })
 

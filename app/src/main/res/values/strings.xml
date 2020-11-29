@@ -13,14 +13,12 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
     <string name="btn_OK_label">OK</string>
     <string name="btn_skip_label">Skip</string>
     <string name="btn_done_label">Done</string>
 
+    <string name="title_home">Home</string>
     <string name="title_scanner">Scanner</string>
     <string name="title_account">Account</string>
     <string name="label_instructions">Start scanning and view the results here</string>
@@ -28,4 +26,14 @@
     <string name="label_instruction_title">Instrucciones</string>
     <string name="text_instruction_step_1">Coloca tu pie sobre una superficie plana y con un fondo claro.</string>
     <string name="text_instruction_step_2">Asegurate de que el pie se encuentre dentro del recuadro blanco.</string>
+
+    <string name="category_initial_label">Inicial</string>
+    <string name="category_moderate_label">Intermedio</string>
+    <string name="category_advanced_label">Avanzado</string>
+    <string name="category_none_label">Saludable</string>
+
+    <string name="error_message_on_request">Ups! Algo salió mal...</string>
+    <string name="error_message_on_request_detail_internet">Asegurese de estar conectado a Internet</string>
+    <string name="error_message_on_request_detail_500">Intente más tarde</string>
+    <string name="error_message_on_request_detail_image">Siga las instrucciones de cómo tomar la foto</string>
 </resources>

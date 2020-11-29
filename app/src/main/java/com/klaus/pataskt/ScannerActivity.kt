@@ -18,7 +18,7 @@ import com.klaus.pataskt.ui.scanner.ResultFragment
 import com.klaus.pataskt.util.Constant
 import java.io.ByteArrayOutputStream
 
-class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment, InstructionsFragment.InstructionsListener {
+class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment, InstructionsFragment.InstructionsListener, ResultFragment.IResultFragment {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +76,10 @@ class ScannerActivity : AppCompatActivity(), CameraFragment.ICameraFragment, Ins
 
     override fun dismissInstructions() {
         loadFragment(CameraFragment())
+    }
+
+    override fun goToCamera() {
+        loadFragment(InstructionsFragment())
     }
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {

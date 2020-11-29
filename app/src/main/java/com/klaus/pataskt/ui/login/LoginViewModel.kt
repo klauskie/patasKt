@@ -62,41 +62,13 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                 response ->
             try {
                 Log.v(TAG, "Response: $response")
+                val responseDoctor = response.getJSONObject("doctor")
+                val doctorModel = DoctorModel(responseDoctor.getString(Constant.KEY_API_NAME), "",
+                    responseDoctor.getString(Constant.KEY_DOCTOR_EMAIL),
+                    responseDoctor.getString(Constant.KEY_DOCTOR_HOSPITAL))
                 val loggedUser = LoggedInUser(response.getString(Constant.KEY_API_ID), response.getString(
-                    Constant.KEY_API_NAME), response.getString(Constant.KEY_API_PHONE), code, null
-                )
+                    Constant.KEY_API_NAME), response.getString(Constant.KEY_API_PHONE), code, doctorModel)
                 loginRepository.setLoggedInUser(loggedUser)
-                _loginResult.value = LoginResult(success = loggedUser)
-            } catch (e: JSONException) {
-                Log.v(TAG, "Error: ${e.printStackTrace()}")
-                _loginResult.value = LoginResult(error = R.string.login_failed)
-            }
-        }, Response.ErrorListener { error ->
-            Log.v(TAG, "Error: ${error.printStackTrace()}")
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        })
-
-        getDoctorInfo(ctx, code)
-
-        ApiFetcher.getInstance(ctx).addToRequestQueue(request)
-    }
-
-    fun getDoctorInfo(context: Context?, code: String) {
-        val ctx = context ?: return
-
-        val request = JsonObjectRequest(Request.Method.GET, Constant.API_GET_DOCTOR_URL.plus("?codigo=$code"), null, Response.Listener {
-                response ->
-            try {
-                Log.v(TAG, "Response: $response")
-                val doctorModel = DoctorModel(
-                    response.getString(Constant.KEY_API_NAME),
-                    "",
-                    response.getString(Constant.KEY_DOCTOR_EMAIL),
-                    response.getString(Constant.KEY_DOCTOR_HOSPITAL))
-                val loggedUser = loginRepository.user
-                loggedUser?.doctor = doctorModel
-
-                loginRepository.setLoggedInUser(loggedUser!!)
                 _loginResult.value = LoginResult(success = loggedUser)
             } catch (e: JSONException) {
                 Log.v(TAG, "Error: ${e.printStackTrace()}")

@@ -36,4 +36,13 @@
     <string name="error_message_on_request_detail_internet">Asegurese de estar conectado a Internet</string>
     <string name="error_message_on_request_detail_500">Intente más tarde</string>
     <string name="error_message_on_request_detail_image">Siga las instrucciones de cómo tomar la foto</string>
+
+    <string name="name_label">Nombre:</string>
+    <string name="phone_label">Teléfono:</string>
+    <string name="code_label">Código:</string>
+    <string name="doctor_email_label">Email:</string>
+    <string name="doctor_hospital_label">Hospital:</string>
+
+    <string name="your_info_label">Tu información</string>
+    <string name="doctor_info_label">Información del doctor</string>
 </resources>

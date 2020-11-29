@@ -5,5 +5,8 @@ package com.klaus.pataskt.data.model
  */
 data class LoggedInUser(
     val userId: String,
-    val displayName: String
+    val displayName: String,
+    val phoneNumber: String,
+    val code: String,
+    var doctor: DoctorModel?
 )

@@ -4,70 +4,194 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Log out"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 
     <LinearLayout
-        android:id="@+id/container_code"
-        android:layout_width="0dp"
+        android:id="@+id/my_info_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:padding="24dp"
+        android:background="@drawable/result_item_shape"
+        android:elevation="2dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias=".2">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prompt_code"
-            android:textSize="30sp"
-            android:layout_weight=".3"/>
+            android:text="@string/your_info_label"
+            android:textColor="@color/colorPrimaryBlue"
+            android:textSize="25dp"/>
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prompt_code"
-            android:textSize="20sp"
-            android:layout_weight="1"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="@string/name_label"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/user_name_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:text="Joe Doe"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="@string/phone_label"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/user_phone_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:text="6141234567"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="@string/code_label"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/user_code_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:text="abc123"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:id="@+id/doctor_info_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginEnd="24dp"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/container_code"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_marginEnd="24dp"
+        android:padding="24dp"
+        android:background="@drawable/result_item_shape"
+        android:elevation="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/my_info_container">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Doctor"
-            android:textSize="25sp"
-            android:layout_weight=".3"/>
+            android:text="@string/doctor_info_label"
+            android:textColor="@color/colorPrimaryBlue"
+            android:textSize="25dp"/>
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/prompt_code"
-            android:textSize="15sp"
-            android:layout_weight="1"/>
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="@string/name_label"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/doctor_name_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:text="Joe Doe"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="@string/phone_label"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/doctor_phone_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:text="6141234567"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="@string/doctor_email_label"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/doctor_email_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:text="correo@gmail.com"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:text="@string/doctor_hospital_label"
+                android:textSize="15dp"/>
+            <TextView
+                android:id="@+id/doctor_hospital_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".7"
+                android:text="Hospital los Arcos"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 

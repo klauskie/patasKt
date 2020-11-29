@@ -13,7 +13,8 @@ import com.klaus.pataskt.ui.home.HomeFragment
 import com.klaus.pataskt.ui.login.LoginFragment
 import com.klaus.pataskt.util.Constant
 
-class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin {
+class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
+    AccountFragment.IAccountFragment {
 
     var HOME_REQUEST_CODE = 10
     lateinit var navView: BottomNavigationView
@@ -68,5 +69,11 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin {
 
     override fun onLogin() {
         loadFragment(getAccountFragmentToShow())
+    }
+
+    override fun onLogout() {
+        val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        sharedPref.edit().clear().apply()
+        loadFragment(AccountLoginFragment())
     }
 }

@@ -1,5 +1,6 @@
 package com.klaus.pataskt.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +13,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.klaus.pataskt.R
+import com.klaus.pataskt.util.Constant
 
 class HomeFragment : Fragment() {
 
     private var TAG = HomeFragment::class.java.simpleName
 
     private lateinit var homeViewModel: HomeViewModel
+    lateinit var recordList: ArrayList<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -27,9 +30,17 @@ class HomeFragment : Fragment() {
 
         val resultRecyclerView = view.findViewById<RecyclerView>(R.id.result_recycler_view)
         resultRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        resultRecyclerView.adapter = ResultItemAdaper(context!!, getRecords())
 
-        if (getRecords().size > 0) {
+        val sharedPref = activity?.getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        val code = sharedPref?.getString(Constant.KEY_MED_CODE, "") ?: ""
+
+        if (!code.isEmpty()) {
+            recordList = getRecords()
+            resultRecyclerView.adapter = ResultItemAdaper(context!!, getRecords())
+        }
+
+
+        if (this::recordList.isInitialized) {
             instructionBox.visibility = View.INVISIBLE
         }
 

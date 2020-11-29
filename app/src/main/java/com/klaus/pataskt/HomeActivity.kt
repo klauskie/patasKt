@@ -48,7 +48,8 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
         val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         code = sharedPref.getString(Constant.KEY_MED_CODE, "") ?: ""
 
-        requestHistory(code)
+        recordList = ArrayList()
+        requestHistory(code, true)
 
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -68,6 +69,8 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
     }
 
     private fun getAccountFragmentToShow() : Fragment {
+        val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        code = sharedPref.getString(Constant.KEY_MED_CODE, "") ?: ""
         return if (code.isEmpty()) {
             AccountLoginFragment()
         } else {
@@ -78,7 +81,9 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         navView.selectedItemId = R.id.navigation_home
-        requestHistory(code)
+        val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        code = sharedPref.getString(Constant.KEY_MED_CODE, "") ?: ""
+        requestHistory(code, true)
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -86,6 +91,9 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
     }
 
     override fun onLogin() {
+        val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        code = sharedPref.getString(Constant.KEY_MED_CODE, "") ?: ""
+        requestHistory(code, false)
         loadFragment(getAccountFragmentToShow())
     }
 
@@ -99,8 +107,13 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
         return recordList
     }
 
-    fun requestHistory(code: String) {
-        recordList = ArrayList()
+    fun requestHistory(code: String, navigate: Boolean) {
+        if (code.isEmpty()) {
+            if (navigate) {
+                loadFragment(HomeFragment())
+            }
+            return
+        }
         showSpinner(true)
 
         val request = JsonArrayRequest(Request.Method.GET, Constant.API_GET_HISTORY_URL.plus("?codigo=$code"), null, Response.Listener {
@@ -115,7 +128,9 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
                 Log.v(TAG, "Error: ${e.printStackTrace()}")
             }
             showSpinner(false)
-            loadFragment(HomeFragment())
+            if (navigate) {
+                loadFragment(HomeFragment())
+            }
         }, Response.ErrorListener { error ->
             Log.v(TAG, "Error: ${error.printStackTrace()}")
         })

@@ -28,7 +28,12 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     lateinit var resultRecyclerView: RecyclerView
     lateinit var instructionBox: LinearLayout
-    var recordList: ArrayList<RecordModel>? = null
+    lateinit var recordList: ArrayList<RecordModel>
+    lateinit var homeListener: IHomeFragment
+
+    interface IHomeFragment {
+        fun getHistory(): ArrayList<RecordModel>
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
@@ -43,56 +48,27 @@ class HomeFragment : Fragment() {
         val code = sharedPref?.getString(Constant.KEY_MED_CODE, "") ?: ""
 
 
-        recordList = ArrayList()
-        if (!code.isEmpty()) {
-            getHistory(code)
+        recordList = homeListener.getHistory()
+        if (!code.isEmpty() && !recordList.isEmpty()) {
             resultRecyclerView.adapter = ResultItemAdaper(context!!, recordList)
+            instructionBox.visibility = View.INVISIBLE
         }
 
         return view
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IHomeFragment) {
+            homeListener = context
+        } else {
+            Log.d(TAG, "Activity must implement the IHomeFragment interface")
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         Log.v(TAG, "DEEEED")
-    }
-
-    fun convertToRecordModel(json: JSONObject): RecordModel {
-        val categoryLabel = when (json.getString("resultado")) {
-            "1" -> resources.getString(R.string.category_initial_label)
-            "2" -> resources.getString(R.string.category_moderate_label)
-            "3" -> resources.getString(R.string.category_advanced_label)
-            else -> resources.getString(R.string.category_none_label)
-        }
-        return RecordModel(
-            json.getString("_id"),
-            json.getString("paciente"),
-            json.getString(Constant.API_DATE_RESPONSE_FIELD),
-            json.getString("resultado"),
-            categoryLabel)
-    }
-
-    fun getHistory(code: String) {
-        val ctx = context ?: return
-
-        val request = JsonArrayRequest(Request.Method.GET, Constant.API_GET_HISTORY_URL.plus("?codigo=$code"), null, Response.Listener {
-                response ->
-            instructionBox.visibility = View.INVISIBLE
-            try {
-                for (i in 0 until response.length()) {
-                    val record = convertToRecordModel(response.getJSONObject(i))
-                    Log.v(TAG, "Object $i: $record")
-                    recordList?.add(record)
-                }
-                resultRecyclerView.adapter?.notifyDataSetChanged()
-            } catch (e: JSONException) {
-                Log.v(TAG, "Error: ${e.printStackTrace()}")
-            }
-        }, Response.ErrorListener { error ->
-            Log.v(TAG, "Error: ${error.printStackTrace()}")
-        })
-
-        ApiFetcher.getInstance(ctx).addToRequestQueue(request)
     }
 
     companion object {

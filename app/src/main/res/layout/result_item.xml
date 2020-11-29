@@ -1,24 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="24dp"
+    android:layout_margin="10dp"
+    android:paddingBottom="24dp"
     android:elevation="2dp"
     android:background="@drawable/result_item_shape">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bla bla bla"
-        android:textSize="30dp"
-        android:padding="30dp"/>
+    <ImageView
+        android:id="@+id/image_result"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="@drawable/result_image_one"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bla bla bla"
-        android:textSize="30dp"
-        android:padding="30dp"/>
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Estado:"
+            android:textSize="20dp"
+            android:layout_weight=".5"
+            android:textColor="@color/colorPrimaryBlue"/>
+
+        <TextView
+            android:id="@+id/status_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="RIP"
+            android:textSize="20dp"
+            android:layout_weight=".5"
+            android:textColor="@color/colorPrimaryBlue"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Fecha:"
+            android:textSize="20dp"
+            android:layout_weight=".5"
+            android:textColor="@color/colorPrimaryBlue"/>
+
+        <TextView
+            android:id="@+id/date_edit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="28-11-2020"
+            android:textSize="20dp"
+            android:layout_weight=".5"
+            android:textColor="@color/colorPrimaryBlue"/>
+
+    </LinearLayout>
 
 </LinearLayout>

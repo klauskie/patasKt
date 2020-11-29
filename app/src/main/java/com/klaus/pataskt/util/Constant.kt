@@ -10,6 +10,7 @@ class Constant {
         const val API_PHOTO_POST_URL = "https://patas-app.herokuapp.com/api/predict"
         const val API_LOGIN_URL = "https://patas-app.herokuapp.com/api/paciente/signin"
         const val API_GET_DOCTOR_URL = "https://patas-app.herokuapp.com/api/paciente/doctor"
+        const val API_GET_HISTORY_URL = "https://patas-app.herokuapp.com/api/historial/codigo"
         const val API_PHOTO_POST_REQUEST_FIELD = "foto"
         const val API_CODE_REQUEST_FIELD = "codigo"
         const val API_CATEGORY_RESPONSE_FIELD = "categoria"

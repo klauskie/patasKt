@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
     lateinit var code: String
     lateinit var recordList: ArrayList<RecordModel>
     lateinit var spinner: ProgressBar
+    lateinit var errorContainer: LinearLayout
 
     private fun startCameraActivity() {
         val intent = Intent(this, ScannerActivity::class.java)
@@ -43,6 +45,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
 
         navView = findViewById(R.id.nav_view)
         spinner = findViewById(R.id.progress_loader)
+        errorContainer = findViewById(R.id.error_container)
         //loadFragment(HomeFragment())
 
         val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
@@ -107,7 +110,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
         return recordList
     }
 
-    fun requestHistory(code: String, navigate: Boolean) {
+    private fun requestHistory(code: String, navigate: Boolean) {
         if (code.isEmpty()) {
             if (navigate) {
                 loadFragment(HomeFragment())
@@ -118,6 +121,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
 
         val request = JsonArrayRequest(Request.Method.GET, Constant.API_GET_HISTORY_URL.plus("?codigo=$code"), null, Response.Listener {
                 response ->
+            errorContainer.visibility = View.INVISIBLE
             try {
                 for (i in 0 until response.length()) {
                     val record = convertToRecordModel(response.getJSONObject(i))
@@ -126,6 +130,8 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
                 }
             } catch (e: JSONException) {
                 Log.v(TAG, "Error: ${e.printStackTrace()}")
+                showSpinner(false)
+                errorContainer.visibility = View.VISIBLE
             }
             showSpinner(false)
             if (navigate) {
@@ -133,12 +139,14 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
             }
         }, Response.ErrorListener { error ->
             Log.v(TAG, "Error: ${error.printStackTrace()}")
+            showSpinner(false)
+            errorContainer.visibility = View.VISIBLE
         })
 
         ApiFetcher.getInstance(this).addToRequestQueue(request)
     }
 
-    fun convertToRecordModel(json: JSONObject): RecordModel {
+    private fun convertToRecordModel(json: JSONObject): RecordModel {
         val categoryLabel = when (json.getString("resultado")) {
             "1" -> resources.getString(R.string.category_initial_label)
             "2" -> resources.getString(R.string.category_moderate_label)
@@ -153,7 +161,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
             categoryLabel)
     }
 
-    fun showSpinner(show: Boolean) {
+    private fun showSpinner(show: Boolean) {
         when (show) {
             true -> spinner.visibility = View.VISIBLE
             false -> spinner.visibility = View.INVISIBLE

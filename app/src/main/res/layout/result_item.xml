@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:paddingBottom="24dp"
+    android:paddingBottom="10dp"
     android:elevation="2dp"
     android:background="@drawable/result_item_shape">
 
@@ -21,15 +21,14 @@
         android:orientation="horizontal"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Estado:"
             android:textSize="20dp"
-            android:layout_weight=".5"
+            android:layout_weight=".4"
             android:textColor="@color/colorPrimaryBlue"/>
 
         <TextView
@@ -38,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="RIP"
             android:textSize="20dp"
-            android:layout_weight=".5"
+            android:layout_weight=".6"
             android:textColor="@color/colorPrimaryBlue"/>
 
     </LinearLayout>
@@ -49,7 +48,7 @@
         android:orientation="horizontal"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp">
 
         <TextView
@@ -57,16 +56,16 @@
             android:layout_height="wrap_content"
             android:text="Fecha:"
             android:textSize="20dp"
-            android:layout_weight=".5"
+            android:layout_weight=".4"
             android:textColor="@color/colorPrimaryBlue"/>
 
         <TextView
             android:id="@+id/date_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="28-11-2020"
-            android:textSize="20dp"
-            android:layout_weight=".5"
+            android:text="28-11-2020 - 21:45"
+            android:textSize="15dp"
+            android:layout_weight=".6"
             android:textColor="@color/colorPrimaryBlue"/>
 
     </LinearLayout>

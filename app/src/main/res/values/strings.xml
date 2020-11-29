@@ -1,27 +1,28 @@
 <resources>
-    <string name="app_name">PatasKt</string>
+    <string name="app_name">Tlaloc TBD</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="prompt_code">Code</string>
-    <string name="info_code_label">Contact your doctor for your code.\n If you already have a code, enter it in the space shown. You can also skip this process and enter it later.</string>
-    <string name="info_code_no_skip_label">Contact your doctor for your code.\n If you already have a code, enter it in the space shown.</string>
+    <string name="prompt_code">Código</string>
+    <string name="info_code_label">Comuníquese con su médico para obtener su código.\n Si ya tiene un código, ingréselo en el espacio que se muestra. También puede omitir este proceso e ingresarlo más tarde.</string>
+    <string name="info_code_no_skip_label">Comuníquese con su médico para obtener su código.\n Si ya tiene un código, ingréselo en el espacio que se muestra.</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_skip_sign_in">Skip Sign in</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_code">Not a valid code</string>
+    <string name="action_sign_in">Iniciar sesión</string>
+    <string name="action_sign_out">Salir</string>
+    <string name="action_skip_sign_in">Más tarde</string>
+    <string name="action_sign_in_short">Inicio de sesión</string>
+    <string name="welcome">"Bienvenido !"</string>
+    <string name="invalid_code">Código inválido</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="login_failed">"Inicio de sesión falló"</string>
     <string name="title_activity_home">HomeActivity</string>
 
     <string name="btn_OK_label">OK</string>
-    <string name="btn_skip_label">Skip</string>
-    <string name="btn_done_label">Done</string>
+    <string name="btn_skip_label">Siguiente</string>
+    <string name="btn_done_label">Listo</string>
 
-    <string name="title_home">Home</string>
-    <string name="title_scanner">Scanner</string>
-    <string name="title_account">Account</string>
-    <string name="label_instructions">Start scanning and view the results here</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_scanner">Cámara</string>
+    <string name="title_account">Mi Perfil</string>
+    <string name="label_instructions">Comience a escanear y vea los resultados aquí</string>
 
     <string name="label_instruction_title">Instrucciones</string>
     <string name="text_instruction_step_1">Coloca tu pie sobre una superficie plana y con un fondo claro.</string>

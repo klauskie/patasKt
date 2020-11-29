@@ -26,6 +26,45 @@
         app:itemTextColor="@drawable/bottom_nav_color_selector"
         app:itemIconTint="@drawable/bottom_nav_color_selector"/>
 
+    <LinearLayout
+        android:id="@+id/error_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/error_cloud"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:text="@string/error_message_on_request"
+            android:textSize="24dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/error_message_on_request_detail_500"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
     <ProgressBar
         android:id="@+id/progress_loader"
         style="?android:attr/progressBarStyle"

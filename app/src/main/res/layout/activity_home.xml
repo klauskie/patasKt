@@ -35,7 +35,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
-        android:visibility="invisible">
+        android:visibility="invisible"
+        android:elevation="-1dp">
 
         <ImageView
             android:layout_width="250dp"

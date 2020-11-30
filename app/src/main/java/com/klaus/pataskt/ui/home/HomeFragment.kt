@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        instructionBox = view.findViewById(R.id.instructions_box)
+        instructionBox = view.findViewById<LinearLayout>(R.id.instructions_box)
 
         resultRecyclerView = view.findViewById(R.id.result_recycler_view)
         resultRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

@@ -116,7 +116,7 @@ class CameraFragment : Fragment() {
             next_btn.visibility = View.INVISIBLE
             camera_capture_button.visibility = View.VISIBLE
             guideline.visibility = View.VISIBLE
-            info_btn.visibility = View.INVISIBLE
+            info_btn.visibility = View.VISIBLE
             img.close()
             startCamera()
         }

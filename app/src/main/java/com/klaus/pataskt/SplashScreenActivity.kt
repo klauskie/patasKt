@@ -20,15 +20,16 @@ class SplashScreenActivity : AppCompatActivity() {
         Handler().postDelayed({
             // This method will be executed once the timer is over
             val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-            val showLogin = sharedPref.getBoolean(Constant.KEY_HAS_SEEN_LOGIN_SCREEN, false)
+            val hasSeenLogin = sharedPref.getBoolean(Constant.KEY_HAS_SEEN_LOGIN_SCREEN, false)
+            val code = sharedPref.getString(Constant.KEY_MED_CODE, "")
             //sharedPref.edit().clear().apply()
 
-            val intent = when(showLogin) {
+            val intent = when(hasSeenLogin || !code.isNullOrBlank()) {
                 true -> Intent(this, HomeActivity::class.java)
                 false -> Intent(this, LoginActivity::class.java)
             }
 
-            Log.d("SplashScreenActivity", "Show login screen: ".plus(showLogin.toString()))
+            Log.d("SplashScreenActivity", "Show login screen: ".plus(hasSeenLogin.toString()))
 
             startActivity(intent)
             finish()

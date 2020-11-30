@@ -33,6 +33,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
     lateinit var recordList: ArrayList<RecordModel>
     lateinit var spinner: ProgressBar
     lateinit var errorContainer: LinearLayout
+    var gotError: Boolean = false
 
     private fun startCameraActivity() {
         val intent = Intent(this, ScannerActivity::class.java)
@@ -57,7 +58,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
         navView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
-                    loadFragment(HomeFragment())
+                    loadFragment(getHomeFragment())
                 }
                 R.id.navigation_scanner -> {
                     startCameraActivity()
@@ -72,6 +73,7 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
     }
 
     private fun getAccountFragmentToShow() : Fragment {
+        errorContainer.visibility = View.INVISIBLE
         val sharedPref = getSharedPreferences(Constant.KEY_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         code = sharedPref.getString(Constant.KEY_MED_CODE, "") ?: ""
         return if (code.isEmpty()) {
@@ -79,6 +81,13 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
         } else {
             AccountFragment()
         }
+    }
+
+    private fun getHomeFragment() : Fragment {
+        if (gotError) {
+            errorContainer.visibility = View.VISIBLE
+        }
+        return HomeFragment()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -113,15 +122,16 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
     private fun requestHistory(code: String, navigate: Boolean) {
         if (code.isEmpty()) {
             if (navigate) {
-                loadFragment(HomeFragment())
+                loadFragment(getHomeFragment())
             }
             return
         }
         showSpinner(true)
+        recordList = ArrayList()
 
         val request = JsonArrayRequest(Request.Method.GET, Constant.API_GET_HISTORY_URL.plus("?codigo=$code"), null, Response.Listener {
                 response ->
-            errorContainer.visibility = View.INVISIBLE
+            //errorContainer.visibility = View.INVISIBLE
             try {
                 for (i in 0 until response.length()) {
                     val record = convertToRecordModel(response.getJSONObject(i))
@@ -132,15 +142,18 @@ class HomeActivity : AppCompatActivity(), LoginFragment.IAccountLoggin,
                 Log.v(TAG, "Error: ${e.printStackTrace()}")
                 showSpinner(false)
                 errorContainer.visibility = View.VISIBLE
+                gotError = true
             }
             showSpinner(false)
+            gotError = false
             if (navigate) {
-                loadFragment(HomeFragment())
+                loadFragment(getHomeFragment())
             }
         }, Response.ErrorListener { error ->
             Log.v(TAG, "Error: ${error.printStackTrace()}")
             showSpinner(false)
             errorContainer.visibility = View.VISIBLE
+            gotError = true
         })
 
         ApiFetcher.getInstance(this).addToRequestQueue(request)
